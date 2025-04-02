@@ -41,6 +41,9 @@
                         <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Consecutive</th>
                         <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Field 1</th>
                         <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Field 2</th>
+                        <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Field 3</th>
+                        <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Field 4</th>
+                        <th class="w-1/2 text-left py-3 px-4 uppercase font-semibold text-sm">Field 5</th>
                         <th class="w-1/6 text-center py-3 px-4 uppercase font-semibold text-sm">Action</th>
                     </tr>
                 </thead>
@@ -68,6 +71,15 @@
                         <td class="text-left py-3 px-4">
                             {{$type->field_2}}
                         </td>
+                        <td class="text-left py-3 px-4">
+                            {{$type->field_3}}
+                        </td>
+                        <td class="text-left py-3 px-4">
+                            {{$type->field_4}}
+                        </td>
+                        <td class="text-left py-3 px-4">
+                            {{$type->field_5}}
+                        </td>
                         <td class="text-center py-2 px-2">
                         <a href="{{route('personTypeInformation.createFilter', $type->id)}}" class="text-black opacity-75 hover:opacity-100 mx-2">
                             <i class="fas fa-plus-circle "></i>
@@ -78,9 +90,7 @@
                             <a title="Edit" href="{{ route('personTypeInformation.edit',$type->id) }}" class="text-black opacity-75 hover:opacity-100 mx-2">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a title="Edit Filter" href="{{ route('personTypeInformation.editFilter',$type->id) }}" class="text-black opacity-75 hover:opacity-100 mx-2">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                            
                             <form method="POST" action="{{ route('personTypeInformation.destroy', $type->id) }}" style="display:inline;" class="mx-2">
                                 @csrf
                                 @method("DELETE")

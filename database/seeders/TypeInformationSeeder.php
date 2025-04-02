@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use App\Models\TypeInformation;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TypeInformationSeeder extends Seeder
@@ -15,42 +14,50 @@ class TypeInformationSeeder extends Seeder
     public function run(): void
     {
         $companyName = 'Etecsa';
+
+        // Retrieve the company
         $company = Company::where('name', $companyName)->first();
 
-        if ($company) {
-            TypeInformation::create([
-                'codTypeInformation' => 'EYE_COLOR',
-                'typeInformation' => 'know the eye color',
-                'is_singleRegistry' => '1',
-                'is_active' => '1',
-                'company_id' => $company->id, // ID de la compañía basado en el nombre
-            ]);
-            TypeInformation::create([
-                'codTypeInformation' => 'BLOOD_TYPE',
-                'typeInformation' => 'know blood type',
-                'is_singleRegistry' => '1',
-                'is_active' => '1',
-                'company_id' => $company->id, // ID de la compañía basado en el nombre
-            ]);
-            TypeInformation::create([
-                'codTypeInformation' => 'COMPANY_PREVIOS_JOB',
-                'typeInformation' => 'companies where you have worked before',
-                'is_singleRegistry' => '0',
-                'is_active' => '1',
-                'company_id' => $company->id, // ID de la compañía basado en el nombre
-            ]);
-            TypeInformation::create([
-                'codTypeInformation' => 'Disability',
-                'typeInformation' => 'Disability Details',
-                'is_singleRegistry' => '0',
-                'is_active' => '1',
-                'company_id' => $company->id, // ID de la compañía basado en el nombre
-            ]);
-
-        } else {
-           
+        if (!$company) {
             $this->command->info("Company '{$companyName}' was not found.");
+            return;
         }
+
+        // Define the data to seed
+        $typeInformationData = [
+            [
+                'codTypeInformation' => 'EYE_COLOR',
+                'typeInformation' => 'Know the eye color',
+                'is_singleRegistry' => true,
+                'is_active' => true,
+            ],
+            [
+                'codTypeInformation' => 'BLOOD_TYPE',
+                'typeInformation' => 'Know blood type',
+                'is_singleRegistry' => true,
+                'is_active' => true,
+            ],
+            [
+                'codTypeInformation' => 'COMPANY_PREVIOS_JOB',
+                'typeInformation' => 'Companies where you have worked before',
+                'is_singleRegistry' => false,
+                'is_active' => true,
+            ],
+            [
+                'codTypeInformation' => 'Disability',
+                'typeInformation' => 'Disability details',
+                'is_singleRegistry' => false,
+                'is_active' => true,
+            ],
+        ];
+
+        // Iterate through the data and create records
+        foreach ($typeInformationData as $data) {
+            TypeInformation::create(array_merge($data, [
+                'company_id' => $company->id, // Attach the company ID
+            ]));
+        }
+
+        $this->command->info('TypeInformation records have been successfully created.');
     }
 }
-

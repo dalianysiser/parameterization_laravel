@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Person Type Information
+Person Type Information
 @endsection
 @section('content')
 
@@ -15,77 +15,62 @@
         <div class="w-full my-6">
             <div class="leading-loose">
                 <form class="p-10 bg-white rounded shadow-xl" method="POST" action="{{route('personTypeInformation.update', $personTypeInformation->id)}}">
-                @method('PUT')
-                @csrf
+                    @method('PUT')
+                    @csrf
                     <!-- Two-column layout -->
                     <div class="grid grid-cols-2 gap-6">
                         <!-- Column 1 -->
                         <div class="mb-4">
                             <label class="block text-sm text-gray-600" for="person_id">Person</label>
-                            <select name="person_id" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
-                                @foreach ($people as $person) 
-                                    <option value="{{$person->id}}" {{ old('person_id', $personTypeInformation->person_id) == $person->id ? 'selected' : '' }}>{{ $person->name }}</option> 
+                            <select name="person_id" id="person_id" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
+                                @foreach ($people as $person)
+                                <option value="{{$person->id}}" {{ old('person_id', $personTypeInformation->person_id) == $person->id ? 'selected' : '' }}>{{ $person->name }}</option>
                                 @endforeach
                             </select>
                             @error('person_id')
-                                <p class="text-red-500 text-xs italic">{{$message}}</p>
+                            <p class="text-red-500 text-xs italic">{{$message}}</p>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-4">
                             <label class="block text-sm text-gray-600" for="company_id">Company</label>
                             <select name="company_id" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
                                 @foreach ($companies as $company)
-                                    <option value="{{$company->id}}" {{ old('company_id', $personTypeInformation->company_id) == $company->id ? 'selected' : '' }}>{{ $company->name }}</option> 
+                                <option value="{{$company->id}}" {{ old('company_id', $personTypeInformation->company_id) == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
                                 @endforeach
                             </select>
                             @error('company_id')
-                                <p class="text-red-500 text-xs italic">{{$message}}</p>
+                            <p class="text-red-500 text-xs italic">{{$message}}</p>
                             @enderror
                         </div>
 
                         <!-- Column 2 -->
                         <div class="mb-4">
                             <label class="block text-sm text-gray-600" for="type_information_id">Type Information</label>
-                            <select name="type_information_id" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
+                            <select id="type_information_id" name="type_information_id" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
                                 @foreach ($typeInformations as $type_information)
-                                    <option value="{{$type_information->id}}" {{ old('type_information_id', $personTypeInformation->type_information_id) == $type_information->id ? 'selected' : '' }}>{{ $type_information->typeInformation }}</option>
+                                <option value="{{$type_information->id}}" {{ old('type_information_id', $personTypeInformation->type_information_id) == $type_information->id ? 'selected' : '' }}>{{ $type_information->typeInformation }}</option>
                                 @endforeach
                             </select>
                             @error('type_information_id')
-                                <p class="text-red-500 text-xs italic">{{$message}}</p>
-                            @enderror
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="block text-sm text-gray-600" for="detail_type_information_id">Detail Type Information</label>
-                            <select name="detail_type_information_id" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
-                                @foreach ($detailTypeInformations as $detail)
-                                    <option value="{{$detail->id}}" {{ old('detail_type_information_id', $personTypeInformation->detail_type_information_id) == $detail->id ? 'selected' : '' }}>{{ $detail->detail }}</option>
-                                @endforeach
-                            </select>
-                            @error('detail_type_information_id')
-                                <p class="text-red-500 text-xs italic">{{$message}}</p>
+                            <p class="text-red-500 text-xs italic">{{$message}}</p>
                             @enderror
                         </div>
 
                         <!-- Column 1 -->
                         <div class="mb-4">
                             <label class="block text-sm text-gray-600" for="consecutive">Consecutive</label>
-                            <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white" id="consecutive" name="consecutive" type="text" value="{{old('consecutive', $personTypeInformation->consecutive)}}" required placeholder="Consecutive" aria-label="Consecutive">
+                            <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white" id="consecutive" name="consecutive" type="text" readonly value="{{old('consecutive', $personTypeInformation->consecutive)}}" required placeholder="Consecutive" aria-label="Consecutive">
                             @error('consecutive')
-                                <p class="text-red-500 text-xs italic">{{$message}}</p>
+                            <p class="text-red-500 text-xs italic">{{$message}}</p>
                             @enderror
                         </div>
 
-                        <!-- Column 2 -->
-                        <div class="mb-4">
-                            <label class="block text-sm text-gray-600" for="field_1">Field 1</label>
-                            <input class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white" id="field_1" name="field_1" type="text" value="{{old('field_1', $personTypeInformation->field_1)}}" required placeholder="Field 1" aria-label="Field 1">
-                            @error('field_1')
-                                <p class="text-red-500 text-xs italic">{{$message}}</p>
-                            @enderror
+                        <!-- Contenedor Dinámico para Detalle Type Information -->
+                        <div id="dynamic-fields-container" class="grid grid-cols-2 gap-6 mt-6">
+                            <!-- Los campos se cargarán aquí dinámicamente -->
                         </div>
+
                     </div>
 
                     <div class="mt-6">
@@ -98,4 +83,80 @@
         </div>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        function loadDynamicFields(typeInformationId) {
+            if (typeInformationId) {
+                // Realizar la solicitud AJAX
+                
+                $.ajax({
+                    url: "{{ route('get.detail.type.information') }}",
+                    type: "POST",
+                    data: {
+                        type_information_id: typeInformationId,
+                        person_id:  $('#person_id').val(),
+                        consecutive: $('#consecutive').val(),
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(data) {
+                        // Limpiar el contenedor de campos dinámicos
+                        $('#dynamic-fields-container').empty();
+
+                        // Crear los campos dinámicos según los datos recibidos
+                        data.forEach(function(detail) {
+                            let fieldType = detail.field_type || 'text'; // Tipo de campo dinámico
+                            let step = fieldType === 'number' && detail.step ? `step="${detail.step}"` : ''; // Atributo para números
+                            let options = '';
+                            
+                            if (fieldType === 'select' && detail.options) {
+                                // Generar opciones para campos tipo select
+                                options = detail.options.map(option => {
+                                    const selected = option.id == detail.value ? 'selected' : ''; // Verificar si el valor guardado coincide
+                                    
+                                    return `<option value="${option.id}" ${selected}>${option.type}</option>`;
+                                }).join('');
+
+                                $('#dynamic-fields-container').append(`
+                                <div class="mb-4">
+                                    <label class="block text-sm text-gray-600" for="${detail.field_name}">${detail.detail}</label>
+                                    <select id="${detail.field_name}" name="${detail.field_name}" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
+                                        ${options}
+                                    </select>
+                                </div>
+                            `);
+                            } else {
+                                // Generar campos de entrada para otros tipos
+                                $('#dynamic-fields-container').append(`
+                                <div class="mb-4">
+                                    <label class="block text-sm text-gray-600" for="${detail.field_name}">${detail.detail}</label>
+                                    <input id="${detail.field_name}" name="${detail.field_name}" type="${fieldType}" value="${detail.value}" ${step} class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white" placeholder="${detail.detail}">
+                                </div>
+                            `);
+                            }
+                        });
+                    },
+                    error: function() {
+                        alert('Error loading detail type information.');
+                    }
+                });
+            } else {
+                // Si no hay selección válida, limpiar el contenedor dinámico
+                $('#dynamic-fields-container').empty();
+            }
+        }
+
+        // Llamar automáticamente al cargar la página
+        const typeInformationId = $('#type_information_id').val();
+        if (typeInformationId) {
+            loadDynamicFields(typeInformationId); // Cargar los campos con los datos existentes
+        }
+
+        // Evento onchange para actualizar los datos dinámicamente
+        $('#type_information_id').on('change', function() {
+            const typeInformationId = $(this).val();
+            loadDynamicFields(typeInformationId);
+        });
+    });
+</script>
 @endsection

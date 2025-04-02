@@ -10,6 +10,7 @@ use App\Http\Controllers\PersonTypeInformationController;
 use App\Http\Controllers\TypeComboInformationController;
 use App\Http\Controllers\TypeInformationController;
 use App\Models\FieldType;
+use App\Models\PersonTypeInformation;
 use App\Models\TypeComboInformation;
 
 // Route::get('/', function () {
@@ -58,3 +59,7 @@ Route::get('/personTypeInformationEditFilter/{personTypeInformation}', [PersonTy
 Route::post('/personTypeInformationStoreFilter', [PersonTypeInformationController::class,'storeFilter' ])->name('personTypeInformation.storeFilter');
 Route::put('/personTypeInformationUpdateFilter', [PersonTypeInformationController::class,'bulkUpdate' ])->name('personTypeInformation.bulkUpdate');
 Route::resource('/personTypeInformation', PersonTypeInformationController::class );
+Route::post('/get-detail-type-information', [TypeInformationController::class, 'getDetailsByType'])->name('get.detail.type.information');
+Route::post('/get-field-type', [DetailTypeInformationController::class, 'getFieldType'])->name('get.field.type');
+Route::post('/get-list-data', [PersonTypeInformationController::class, 'getListData'])->name('get.list.data');
+Route::get('/list', [PersonTypeInformationController::class, 'list'])->name('list');

@@ -43,7 +43,7 @@
                         <!-- Other Fields -->
                         <div class="mb-4">
                             <label class="block text-sm text-gray-600">Consecutive</label>
-                            <input type="text" name="personTypeInformations[{{$personTypeInformation->id}}][consecutive]" value="{{ old("personTypeInformations.{$personTypeInformation->id}.consecutive", $personTypeInformation->consecutive) }}" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
+                            <input type="text" readonly name="personTypeInformations[{{$personTypeInformation->id}}][consecutive]" value="{{ old("personTypeInformations.{$personTypeInformation->id}.consecutive", $personTypeInformation->consecutive) }}" class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded focus:outline-none focus:bg-white">
                         </div>
                         
                         <!-- Example of Additional Field -->

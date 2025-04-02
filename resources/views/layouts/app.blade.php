@@ -56,6 +56,10 @@
                 <i class="fas fa-users mr-3"></i>
                 Person Type Information
             </a>
+            <a href="{{route('list')}}" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                <i class="fas fa-users mr-3"></i>
+                Data per Person
+            </a>
 
         </nav>
        
@@ -117,6 +121,10 @@
                 <a href="{{route('personTypeInformation.index')}}" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
                     <i class="fas fa-users mr-3"></i>
                     Person Type Information
+                </a>
+                <a href="{{route('list')}}" class="flex items-center text-white opacity-75 hover:opacity-100 py-4 pl-6 nav-item">
+                    <i class="fas fa-users mr-3"></i>
+                    Data per Person
                 </a>
                 <a href="#" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
                     <i class="fas fa-cogs mr-3"></i>
